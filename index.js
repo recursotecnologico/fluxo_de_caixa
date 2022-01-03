@@ -10,6 +10,8 @@ app.set('views', __dirname+'/app')
 app.use(express.static(__dirname+'/public'));
 app.use(cookieParser())
 
+//Cofig parser
+app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 
 require('./app/app_rotas')(app);

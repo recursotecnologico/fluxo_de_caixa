@@ -1,10 +1,11 @@
 exports.cookie = (req,res,next)=>{
-    console.log(req);
-    const cookie = req.cookie;
-    //console.log(token);
+    const cookie = req.headers.cookie;
     if(cookie == undefined){
         return res.redirect(301,'/login')
     }
-
     next();
+}
+exports.cookie_logout = (req,res)=>{
+    req.clearCookie('token');
+    return res.redirect(301, '/');
 }

@@ -1,0 +1,26 @@
+create table IF NOT EXISTS usuarios (
+    usuario_id serial not null primary key,
+    usuario varchar(30) not null unique,
+    usuario_login varchar(30) not null,
+    usuario_senha varchar(32) not null,
+    usuario_salt varchar(8) not null,
+    usuario_token varchar(32) not null unique,
+    usuario_grupo varchar(10) not null
+);
+
+insert into usuarios (
+    usuario,
+    usuario_login,
+    usuario_senha,
+    usuario_salt,
+    usuario_token,
+    usuario_grupo
+) values(
+    'Administrador',
+    'admin',
+    'cdfcbc3eedfb344053e91c8c1410aec7',
+    'SJt7K',
+    'cdfcbc3eedfb344053e91c8c1410aec7',
+    'admin'
+);
+

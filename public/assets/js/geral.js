@@ -1,6 +1,31 @@
+
 const $_navegacao_btn_menu = document.querySelector('.navegacao_btn_menu');
 const $_menu_lateral = document.querySelector('.menu_lateral');
 const $_menu_lateral_pano_de_fundo = document.querySelector('.menu_lateral_pano_de_fundo');
+
+const $_navegacao_btn_usuario = document.querySelector('.navegacao_btn_usuario');
+
+
+//Logout
+$_navegacao_btn_usuario.addEventListener('click',async()=>{
+    
+    document.cookie = 'token=; max-age=0';
+    window.location.replace('/');
+})
+
+// window.onload = async ()=>{
+//     //console.log(document.cookie);
+//     //alert(document.cookie)
+//     auth();
+// }
+
+// function auth(){
+//     if(document.cookie == ''){
+//         console.log('cookie')
+//         window.location.replace('/login');
+//     }
+// }
+
 
 
 
