@@ -1,0 +1,30 @@
+Resposta com sucesso
+{
+    status: 200,
+    message: "Cadastro realizado com sucesso",
+    results: [
+        { id: 1, nome: "José"},
+        { id: 2, nome: "Maria"},
+    ]
+}
+
+Resposta com errors
+{
+    status: 400,
+    errors: [
+        {message: "O campo cpf é de preenchimento obrigatório"},
+        {message: "O campo nome é de preenchimento obrigatório"}
+    ]
+}
+
+Resposta do login com sucesso
+{
+    usuario: "João Dos Santos",
+    token: "kcsjcyugeucepreoiorw438efrj"
+}
+
+Resposta com errors
+{
+    status: 403,
+    message: "token undefined,
+}
