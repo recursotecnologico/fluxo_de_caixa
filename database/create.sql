@@ -13,6 +13,7 @@ insert into usuarios
 values
     ( 'Administrador', 'admin', 'cdfcbc3eedfb344053e91c8c1410aec7', 'SJt7K', 'cdfcbc3eedfb344053e91c8c1410aec7', 'admin' );
 
+
 create table IF NOT EXISTS planos_de_contas(
     plano_de_conta_id serial not null primary key,
     plano_de_conta varchar(30) not null unique,
@@ -23,26 +24,9 @@ create table IF NOT EXISTS planos_de_contas(
 insert into planos_de_contas 
     ( plano_de_conta, plano_de_conta_operacional, plano_de_conta_ativa ) 
 values 
-    ( 'Vendas ou Serviços / Trabalhos', true, true );
-
-insert into planos_de_contas(
-    plano_de_conta,
-    plano_de_conta_operacional,
-    plano_de_conta_ativa
-) values (
-    'Administrativas / Moradia',
-    true,
-    true
-);
-
-insert into planos_de_contas 
-    ( plano_de_conta, plano_de_conta_operacional, plano_de_conta_ativa ) 
-values 
-    ( 'Empréstimos', false, true );
-
-insert into planos_de_contas 
-    ( plano_de_conta, plano_de_conta_operacional, plano_de_conta_ativa ) 
-values 
+    ( 'Vendas ou Serviços / Trabalhos', true, true ),
+    ( 'Administrativas / Moradia', true, true ),
+    ( 'Empréstimos', false, true ),
     ( 'Investimentos', false, true );
 
 
@@ -61,21 +45,9 @@ create table IF NOT EXISTS movimentacoes(
 insert into movimentacoes 
     (movimentacao, movimentacao_tipo, movimentacao_mensal, movimentacao_ativa, movimentacao_fk_plano_de_conta ) 
 values 
-    ( 'Trabalho Esposa', 'R', true, true, 1 );
-
-insert into movimentacoes
-    ( movimentacao, movimentacao_tipo, movimentacao_mensal, movimentacao_ativa, movimentacao_fk_plano_de_conta ) 
-values 
-    ( 'Venda De Produto', 'R', true, true, 1 );
-
-insert into movimentacoes 
-    ( movimentacao, movimentacao_tipo, movimentacao_mensal, movimentacao_ativa, movimentacao_fk_plano_de_conta ) 
-values 
-    ( 'Conta de Luz', 'D', true, true, 2 );
-
-insert into movimentacoes 
-    ( movimentacao, movimentacao_tipo, movimentacao_mensal, movimentacao_ativa, movimentacao_fk_plano_de_conta ) 
-values 
+    ( 'Trabalho Esposa', 'R', true, true, 1 ),
+    ( 'Venda De Produto', 'R', true, true, 1 ),
+    ( 'Conta de Luz', 'D', true, true, 2 ),
     ( 'Conta de Luz', 'D', true, true, 1 );
 
 
