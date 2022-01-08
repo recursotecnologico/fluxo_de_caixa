@@ -1,24 +1,79 @@
 <%- include('../_template/header') %>
     
-<div class="mt-2 p-2 bg-white d-flex justify-content-between">
+<div class="mt-2 p-2 bg-white d-flex justify-content-between" style="border-bottom: 2px solid black;">
     <h5>Planos de Contas</h5>
-    <button class="btn btn-sm btn-outline-primary rounded-pill">
+    <button class="btn btn-sm btn-outline-primary rounded-pill botao_cadastrar">
         <i class="fas fa-plus"></i>
     </button>
 </div>
 
 <table class="table table-sm table-striped table-hover bg-white">
     <thead>
-        <tr><th scope="col">Planos de Contas</th></tr>
+        <tr><th scope="col">Planos de Contas</th><th scope="col" class="text-center">Operacional</th></tr>
     </thead>
     <tbody>
-        <tr><td>Mark</td></tr>
-        <tr><td>Mark</td></tr>
-        <tr><td>Mark</td></tr>
-        <tr><td>Mark</td></tr>
-        <tr><td>Mark</td></tr>
-        <tr><td>Mark</td></tr>
+        <% if((locals.planos_de_contas != undefined) && (planos_de_contas.length > 0)){
+            planos_de_contas.forEach(function(item){
+                if(item.plano_de_conta_operacional == true){%>
+                    <tr><td><%- item.plano_de_conta%></td><td class="text-primary text-center fw-bold ">Sim</td></tr>
+                <%}else{%>
+                    <tr><td><%- item.plano_de_conta%></td><td class="text-danger text-center fw-bold">Não</td></tr>
+                <%}
+            })
+        }else{%>
+            <tr><td>Nenhum plano de contas foi encontrado</td></tr>
+        <%}%>
     </tbody>
-    </table>
+</table>
 
+<!-- Modal -->
+  <div class="modal fade" id="modal_planos_de_contas" tabindex="-1" aria-labelledby="modal_planos_de_contas_titulo" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modal_planos_de_contas_titulo">Modal title</h5>
+        </div>
+        <form id="formulario">
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label for="input_plano_de_conta" class="form-label">Plano de Conta</label>
+                    <input type="text" class="form-control form-control-sm" id="input_plano_de_conta" aria-describedby="emailHelp">
+                </div>
+                  
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" value="true" name="input_plano_de_conta_operacional" id="flexRadioDefault1" checked>
+                    <label class="form-check-label" for="flexRadioDefault1">
+                      Operacional (Cotidiana)
+                    </label>
+                    <div id="operacionalHelp" class="form-text"></div>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" value="false" name="input_plano_de_conta_operacional" id="flexRadioDefault2" aria-describedby="operacionalHelp">
+                    <label class="form-check-label" for="flexRadioDefault2">
+                        Não Operacional (extra)
+                    </label>
+                    <div id="operacionalHelp" class="form-text">Não afeta o fluxo de caixa.</div>
+
+                </div>
+
+
+
+
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-outline-secondary rounded-pill " data-bs-dismiss="modal">Calcelar</button>
+                <button type="submit" class="btn btn-sm btn-outline-primary rounded-pill">Enviar</button>
+            </div>
+    
+          </form>
+
+
+
+
+
+      </div>
+    </div>
+  </div>
 <%- include('../_template/footer') %>
