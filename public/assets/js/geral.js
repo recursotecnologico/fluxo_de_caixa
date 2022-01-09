@@ -13,11 +13,13 @@ $_navegacao_btn_usuario.addEventListener('click',async()=>{
     window.location.replace('/');
 })
 
-// window.onload = async ()=>{
-//     //console.log(document.cookie);
-//     //alert(document.cookie)
-//     auth();
-// }
+window.onload = async ()=>{
+    //console.log(document.cookie);
+    //alert(document.cookie)
+    //auth();
+    //alert(document.cookie)
+}
+
 
 // function auth(){
 //     if(document.cookie == ''){

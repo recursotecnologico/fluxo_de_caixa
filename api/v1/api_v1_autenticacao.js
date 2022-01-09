@@ -7,6 +7,8 @@ exports.login = async (req, res)=>{
         token: time
     }
     res.json(user);
-
-
+}
+exports.header = (req,res,next)=>{
+    console.log(req.headers);
+    next();
 }

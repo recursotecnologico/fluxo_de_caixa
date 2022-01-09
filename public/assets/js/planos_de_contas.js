@@ -15,10 +15,28 @@ $_botao_cadastrar.addEventListener('click', ()=>{
     $_modal_planos_de_contas_titulo.innerHTML = 'Cadastrar';
 })
 
-$_formulario.addEventListener('submit', event=>{
+$_formulario.addEventListener('submit', async event=>{
     event.preventDefault();
     var input = {};
     input.plano_de_conta = $_input_plano_de_conta.value;
     input.plano_de_conta_operacional = document.querySelector('[name="input_plano_de_conta_operacional"]:checked').value;
-    console.log(input);
+    input.plano_de_conta_operacional = JSON.parse(input.plano_de_conta_operacional);
+
+    var api = new Api('/api/v1/');
+    api.setTokenDoCookie();
+    var response = await api.post('planos_de_contas', input);
+    var result = '';
+    console.log(response)
+    switch(response.status){
+        case 404:
+            console.log('Rota não existe no servidor ou esta incorreta');
+        break
+        case 200: 
+            result = await response.json();
+            console.log(result)
+        break
+    }
 })
+
+
+
