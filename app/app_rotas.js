@@ -4,13 +4,14 @@ module.exports = app =>{
 
     require('./login/loginRotas')(app);
 
-    app.get('/', auth.cookie, (req,res)=>{
+    app.get('/', auth.cookie, auth.user, (req,res)=>{ 
+        console.log(res.locals.usuario)
         res.render('views/home');
     })
 
     app.get('logout', auth.cookie_logout);
 
-    app.get('/planos_de_contas', async (req,res)=>{
+    app.get('/planos_de_contas', auth.cookie, auth.user, async (req,res)=>{
         const db = require('../core/dbQuery');
         const result = await db.get('planos_de_contas');
 

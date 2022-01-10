@@ -14,10 +14,22 @@ $_navegacao_btn_usuario.addEventListener('click',async()=>{
 })
 
 window.onload = async ()=>{
+
     //console.log(document.cookie);
     //alert(document.cookie)
     //auth();
-    //alert(document.cookie)
+    //alert(document.cookie);
+    //console.log();
+    //console.log(cookie_parts);
+    //function encode(str){ return String(str).replace(/%/g, "%25").replace(/;/g, "%3B").replace(/=/g, "%3D"); }
+	//function decode(str){ return String(str).replace(/%3D/g, "=").replace(/%3B/g, ";").replace(/%25/g, "%"); }
+}
+
+function decodeTokenDoCookie(){
+    var cookie_string = document.cookie.split('=')[1].replace(/%3D/g, "=");
+    var cookie_obj = window.atob(cookie_string);
+    var user  = JSON.parse(cookie_obj);
+    return user.token;
 }
 
 

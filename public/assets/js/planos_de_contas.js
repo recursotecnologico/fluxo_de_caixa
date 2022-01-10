@@ -23,7 +23,7 @@ $_formulario.addEventListener('submit', async event=>{
     input.plano_de_conta_operacional = JSON.parse(input.plano_de_conta_operacional);
 
     var api = new Api('/api/v1/');
-    api.setTokenDoCookie();
+    api.setToken(decodeTokenDoCookie());
     var response = await api.post('planos_de_contas', input);
     var result = '';
     console.log(response)
@@ -35,6 +35,8 @@ $_formulario.addEventListener('submit', async event=>{
             result = await response.json();
             console.log(result)
         break
+        default:
+            console.log(await response.json());
     }
 })
 

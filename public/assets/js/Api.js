@@ -4,7 +4,8 @@ class Api{
         this.url = '';
         this.headers = {
             'Accept': 'application/json',
-            'Content-type': 'application/json'
+            'Content-type': 'application/json',
+            Authorization: ''
         }
     }
     async post(recurso, input){
@@ -14,5 +15,8 @@ class Api{
             headers: this.headers,
             body: JSON.stringify(input)
         }).catch(err=>(err));
+    }
+    setToken(token){
+        this.headers.Authorization = 'Bearer '+token;
     }
 }

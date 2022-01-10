@@ -12,3 +12,13 @@ exports.randon = (tamanho)=>{
     }
     return code;
 }
+
+exports.base64_encode = (texto)=>{
+    const Base64 = require('nodejs-base64-converter');
+    return Base64.encode(texto);
+}
+
+exports.base64_decode = (texto)=>{
+    const Base64 = require('nodejs-base64-converter');
+    return Base64.decode(texto);
+}

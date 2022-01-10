@@ -6,6 +6,7 @@ exports.logar = async (req,res)=>{
     const db = require('../../core/postgresConnection');
     const crypto = require('crypto');
     const help = require('../../core/helpers');
+    const Base64 = require('nodejs-base64-converter');
 
     var sql = 'select * from usuarios where usuario_login = $1 LIMIT 1';
     var sql_args = [req.body.login];
@@ -33,7 +34,8 @@ exports.logar = async (req,res)=>{
         .update(req.body.senha)
         .digest('hex');
     
-    //Se o hash gerado não coincide com o hash cadastrado.
+    //Se o hash gerado não coincide com o hash cadastrado da senha do usuário.
+    //Seha errada
     if(hash != result.usuario_senha){
         var errors = [
             {message: 'Usuário não encontrado'}
@@ -55,6 +57,14 @@ exports.logar = async (req,res)=>{
     sql_args = [novo_token, result.usuario_id];    
     sql_result = await db.query(sql, sql_args);
 
-    res.cookie('token', novo_token);
+    // Cria o objeto usuário, converte para string e encodifica para Base64.
+    var user = {
+        usuario: result.usuario,
+        token: novo_token
+    }
+    user = JSON.stringify(user);
+    var token_64 = Base64.encode(user);
+    //console.log('Token 64 criado: '+token_64);
+    res.cookie('token', token_64);
     return res.redirect(301,'/');
  }
