@@ -14,6 +14,20 @@ app.use(cookieParser())
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 
+app.use(function(err, req, res, next) {
+    console.log(err)
+    if (err instanceof SyntaxError && err.status === 400 && 'body' in err) {
+      // Handle the error here
+      console.error('Bad JSON');
+      var erro = {status: 400, errors: [{message: 'Erro na formatação do JSON'}]}
+      res.status(400).json(erro);
+    }
+    
+    // Pass the error to the next middleware if it wasn't a JSON parse error
+    //next(err)
+    next()
+  });
+
 require('./app/app_rotas')(app);
 require('./api/api_v1_rotas')(app);
 
