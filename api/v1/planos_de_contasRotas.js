@@ -2,15 +2,11 @@ module.exports = app=>{
 
     const auth = require('./api_v1_autenticacao');
     const msg = require('../../core/messageValidation');
-    const { body, validationResult } = require('express-validator');
+    const { body, param, validationResult } = require('express-validator');
 
-    app.post('/api/v1/planos_de_contas', 
-        auth.header, 
-        auth.user,
-        (req, res, next)=>{
-            console.log(req.body)
-            next();
-        },
+    const plano_de_conta = require('./planos_de_contasController');
+
+    app.post('/api/v1/planos_de_contas',
         body('plano_de_conta')
             .exists()
             .withMessage(msg.obrigatorio_envio('plano_de_conta'))
@@ -27,13 +23,29 @@ module.exports = app=>{
                 return res.status(400).json(msg.erros400(errors));
             }
             next();
-        },
-        async (req,res)=>{
-        console.log(req.body);
-        console.log(res.locals)
+        }, 
+        auth.header, auth.user, plano_de_conta.cadastrar
+    );
 
-        return res.json({message: 'Cadastro realizado com sucesso'});
-    })
+    app.get('/api/v1/planos_de_contas', auth.header, auth.user, plano_de_conta.listar);
 
+
+    app.get('/api/v1/planos_de_contas/:id', 
+        param('id')
+            .exists()
+            .withMessage(msg.obrigatorio_envio('id'))
+            .notEmpty()
+            .withMessage(msg.obrigatorio_preenchimento('id'))
+            .isInt()
+            .withMessage(msg.custom('O parâmetro id deve ser um número do tipo inteiro')),
+            (req, res, next) => {
+                const errors = validationResult(req);
+                if (!errors.isEmpty()) {
+                    return res.status(400).json(msg.erros400(errors));
+                }
+            next();
+            }, 
+        auth.header, auth.user, plano_de_conta.buscar
+    );
     return app;
 }

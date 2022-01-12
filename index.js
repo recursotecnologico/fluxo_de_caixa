@@ -31,4 +31,9 @@ app.use(function(err, req, res, next) {
 require('./app/app_rotas')(app);
 require('./api/api_v1_rotas')(app);
 
+
+app.get('*', (req,res)=>{
+  return res.send('404');
+})
+
 app.listen(PORT, console.log('Servidor rodando na porta: '+PORT));

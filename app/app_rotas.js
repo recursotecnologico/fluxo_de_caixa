@@ -24,8 +24,5 @@ module.exports = app =>{
 
 
     
-    app.get('*', (req,res)=>{
-        return res.send('404');
-    })
     return app;
 }
