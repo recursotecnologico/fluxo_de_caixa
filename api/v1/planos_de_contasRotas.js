@@ -85,8 +85,20 @@ module.exports = app=>{
             }
         next();
         }, 
-    auth.user, plano_de_conta.editar
-);
+        auth.user, plano_de_conta.editar
+    );
+    
+    app.delete('/api/v1/planos_de_contas/:id', 
+        auth.header,
+        param('id')
+            .exists()
+            .withMessage(msg.obrigatorio_envio('id'))
+            .notEmpty()
+            .withMessage(msg.obrigatorio_preenchimento('id'))
+            .isInt()
+            .withMessage(msg.custom('O parâmetro id deve ser um número do tipo inteiro')),
+            auth.user, plano_de_conta.deletar
+    );
 
 
     return app;

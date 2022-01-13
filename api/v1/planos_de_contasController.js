@@ -43,7 +43,7 @@ exports.editar = async (req,res)=>{
     const db = require('../../core/dbQuery');
     const pg_message = require('../../core/postgresMessages');
     var sql = 'update planos_de_contas set '+
-    'plano_de_conta = $1, plano_de_conta_operacional = $2, plano_de_conta_ativa = $3 where plano_de_conta_id = $4';
+    'plano_de_conta = $1, plano_de_conta_operacional = $2, plano_de_conta_ativa = $3 where plano_de_conta_id = $4 RETURNING *';
     var sql_args = [ 
         req.body.plano_de_conta, 
         req.body.plano_de_conta_operacional, 
@@ -54,11 +54,34 @@ exports.editar = async (req,res)=>{
     if(!Array.isArray(sql_result)){
         return res.json(pg_message.erros(sql_result));
     }
+    if(sql_result.length == '0'){
+        return res.status(400).json(
+            pg_message.errosCustom400('Registro não encontrado.')
+        );
+    };
     sql = 'select * from planos_de_contas';
     sql_result = await db.custom(sql);
     return res.json(pg_message.sucesso_update(sql_result));
 }
 
-exports.delatar = async (req,res)=>{
-    
+exports.deletar = async (req,res)=>{
+    console.log();
+    const db = require('../../core/dbQuery');
+    const pg_message = require('../../core/postgresMessages');
+
+    var sql = 'delete from planos_de_contas where plano_de_conta_id = $1 RETURNING *';
+    var sql_args = [req.params.id];
+    var sql_result = await db.custom(sql,sql_args);
+    if(!Array.isArray(sql_result)){
+        return res.status(400).json(pg_message.erros(sql_result));
+    }
+    //Se não existia o registro.
+    if(sql_result.length == '0'){
+        return res.status(400).json(
+            pg_message.errosCustom400('Registro não encontrado.')
+        );
+    };
+    sql = 'select * from planos_de_contas';
+    sql_result = await db.custom(sql);
+    return res.json(pg_message.sucesso_delete(sql_result));
 }
