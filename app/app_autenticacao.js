@@ -1,5 +1,6 @@
 exports.cookie = (req,res,next)=>{
     const cookie = req.headers.cookie;
+    //console.log(req.headers.cookie);
     if(cookie == undefined){
         return res.redirect(301,'/login')
     }
@@ -17,9 +18,10 @@ exports.user = async (req,res, next)=>{
     if(token64 == undefined){
         return res.redirect(301, '/');
     }
-
+    console.log(token64)
     var user_string = help.base64_decode(token64);
     var user = JSON.parse(user_string);
+    //console.log(user)
     var sql = 'select * from usuarios where usuario_token = $1 LIMIT 1';
     var sql_args = [user.token];
     var sql_result = await db.custom(sql, sql_args);

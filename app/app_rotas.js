@@ -5,13 +5,16 @@ module.exports = app =>{
     require('./login/loginRotas')(app);
 
     app.get('/', auth.cookie, auth.user, (req,res)=>{ 
-        console.log(res.locals.usuario)
+        //console.log(res.locals.usuario)
         res.render('views/home');
     })
 
     app.get('logout', auth.cookie_logout);
 
-    app.get('/planos_de_contas', auth.cookie, auth.user, async (req,res)=>{
+    app.get('/planos_de_contas', (req,res,next)=>{
+        console.log('Chegou plano de contas');
+        next();
+    }, auth.cookie, auth.user, async (req,res)=>{
         const db = require('../core/dbQuery');
         const result = await db.get('planos_de_contas');
 

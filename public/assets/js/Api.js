@@ -16,6 +16,14 @@ class Api{
             body: JSON.stringify(input)
         }).catch(err=>(err));
     }
+    async put(recurso, input){
+        this.url = this.url_base+recurso;
+        return await fetch(this.url, {
+            method: 'PUT',
+            headers: this.headers,
+            body: JSON.stringify(input)
+        }).catch(err=>(err));
+    }
     setToken(token){
         this.headers.Authorization = 'Bearer '+token;
     }

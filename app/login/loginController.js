@@ -62,9 +62,11 @@ exports.logar = async (req,res)=>{
         usuario: result.usuario,
         token: novo_token
     }
+    console.log(user)
     user = JSON.stringify(user);
     var token_64 = Base64.encode(user);
     //console.log('Token 64 criado: '+token_64);
+    //console.log(token_64);
     res.cookie('token', token_64);
     return res.redirect(301,'/');
  }

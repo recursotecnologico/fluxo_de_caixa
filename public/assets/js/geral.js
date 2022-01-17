@@ -33,6 +33,37 @@ function decodeTokenDoCookie(){
 }
 
 
+function messagesAlert(tipo, mensagens){
+    var result = '';
+    if(Array.isArray(mensagens)){
+        mensagens.forEach(item=>{
+            if(typeof item === 'object'){
+                console.log('É objeto');
+                result += 
+                '<div class="alert alert-'+tipo+' alert-dismissible fade show" role="alert">'+
+                    item.message+
+                    '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>'+
+                '</div>';
+        
+            }else{
+                console.log('É string')
+                result += 
+                '<div class="alert alert-'+tipo+' alert-dismissible fade show" role="alert">'+
+                    item+
+                    '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>'+
+                '</div>';
+            }
+        })
+    }else{
+        result += 
+        '<div class="alert alert-'+tipo+' alert-dismissible fade show" role="alert"> '+
+            mensagens+
+            '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>'+
+        '</div> ';
+    }
+    return result;        
+}
+
 // function auth(){
 //     if(document.cookie == ''){
 //         console.log('cookie')

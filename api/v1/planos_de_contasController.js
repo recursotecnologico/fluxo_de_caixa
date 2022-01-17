@@ -11,7 +11,7 @@ exports.cadastrar = async (req,res)=>{
     ];
     var sql_result = await db.custom(sql, sql_args);
     if(!Array.isArray(sql_result)){
-        return res.json(pg_message.erros(sql_result));
+        return res.status(400).json(pg_message.erros(sql_result));
     }
     sql = 'select * from planos_de_contas';
     sql_result = await db.custom(sql);
@@ -52,7 +52,7 @@ exports.editar = async (req,res)=>{
     ];
     var sql_result = await db.custom(sql, sql_args);
     if(!Array.isArray(sql_result)){
-        return res.json(pg_message.erros(sql_result));
+        return res.status(400).json(pg_message.erros(sql_result));
     }
     if(sql_result.length == '0'){
         return res.status(400).json(

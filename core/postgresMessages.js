@@ -72,7 +72,7 @@ exports.errosCustom400 = (erros)=>{
 exports.sucesso_insert = (tabela)=>{
     var resposta = {
         status: 200,
-        message: 'Registro atualizado com sucesso',
+        message: 'Registro criado com sucesso',
         results: []
     }
     if(tabela == undefined){
