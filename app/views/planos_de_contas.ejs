@@ -25,14 +25,14 @@
                         <td><%- item.plano_de_conta%></td>
                         <td class="text-primary text-center fw-bold">Sim</td>
                     <%}else if((item.plano_de_conta_operacional == true) && (item.plano_de_conta_ativa == false)){%>
-                        <td class="opacity-50"><%- item.plano_de_conta%></td>
-                        <td class="text-primary text-center fw-bold opacity-50">Sim</td>
+                        <td class="opacity-75"><%- item.plano_de_conta%></td>
+                        <td class="text-primary text-center opacity-75">Sim</td>
                     <%}else if ((item.plano_de_conta_operacional == false) && (item.plano_de_conta_ativa == true)){%>
                         <td><%- item.plano_de_conta%></td>
                         <td class="text-danger text-center fw-bold">Não</td>
                     <%}else{%>
-                        <td class="opacity-50"><%- item.plano_de_conta%></td>
-                        <td class="text-danger text-center fw-bold opacity-50">Não</td>
+                        <td class="opacity-75"><%- item.plano_de_conta%></td>
+                        <td class="text-danger text-center opacity-75">Não</td>
                     <%}%>               
                 </tr>
             <%})
@@ -64,7 +64,7 @@
                     <label class="form-check-label" for="input_plano_de_conta_operacional">Operacional</label>
                 </div>
                 <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" role="switch" checked id="input_plano_de_conta_ativa">
+                    <input class="form-check-input" type="checkbox" role="switch" checked value="true" id="input_plano_de_conta_ativa">
                     <label class="form-check-label" for="input_plano_de_conta_atva">Ativa</label>
                 </div>
             </div>

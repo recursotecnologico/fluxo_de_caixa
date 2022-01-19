@@ -17,11 +17,14 @@ module.exports = app =>{
     }, auth.cookie, auth.user, async (req,res)=>{
         const db = require('../core/dbQuery');
         const result = await db.get('planos_de_contas');
+        const Plano_de_conta = require('../models/planos_de_contas');
+        const tabela = await Plano_de_conta.get();
+        console.log(tabela)
 
         return res.render('views/planos_de_contas', {
             scripts_css: ['/assets/css/kdekdek.css'],
             scripts_js: ['/assets/js/planos_de_contas.js'],
-            planos_de_contas: result
+            planos_de_contas: tabela
         });
     });
 
