@@ -29,7 +29,7 @@ $_formulario.addEventListener('submit', async event=>{
     event.preventDefault();
     var input = {};
     
-    input.plano_de_conta = $_input_plano_de_conta.value;
+    input.plano_de_conta = $_input_plano_de_conta.value.trim();
     input.plano_de_conta_operacional = $_input_plano_de_conta_operacional.checked;
     input.plano_de_conta_ativa = $_input_plano_de_conta_ativa.checked;
 
@@ -40,8 +40,9 @@ $_formulario.addEventListener('submit', async event=>{
     if($_formulario_botao_enviar.value == 'cadastrar'){
         api_response = await api.post('planos_de_contas', input);
     }else{
-        input.plano_de_conta_id = $_input_plano_de_conta_id.value;
+        input.plano_de_conta_id = $_input_plano_de_conta_id.value.trim();
         api_response = await api.put('planos_de_contas/'+input.plano_de_conta_id, input);
+        console.log(input)
     }
     api_result = await api_response.json();
     switch(api_response.status){
@@ -54,7 +55,7 @@ $_formulario.addEventListener('submit', async event=>{
         case 200: 
             $_modal_planos_de_contas_acao.hide();
             $_page_message.innerHTML = messagesAlert('success', api_result.message);    
-            planos_de_contas = api_result.results;
+            planos_de_contas = [...api_result.results];
             renderTable();
         break
         default:
@@ -62,33 +63,85 @@ $_formulario.addEventListener('submit', async event=>{
     }
 })
 
+
+$_input_plano_de_conta_operacional.addEventListener('change', (event)=>{
+    event.preventDefault();
+    setSwitch_com_click($_input_plano_de_conta_operacional);
+})
+
+$_input_plano_de_conta_ativa.addEventListener('change', (event)=>{
+    event.preventDefault();
+    setSwitch_com_click($_input_plano_de_conta_ativa);
+})
+
+
+console.log('O formulario inicia com checked: '+ $_input_plano_de_conta_operacional.checked);
+console.log('O formulario inicia com value: '+ $_input_plano_de_conta_operacional.value);
+
 $_tabela_plano_de_conta.addEventListener('click', event=>{
 
     const linhaClicada = event.target.parentNode;
 
     $_input_plano_de_conta_id.value = parseInt(linhaClicada.getAttribute('data-id'));
     $_input_plano_de_conta.value = linhaClicada.cells[0].innerHTML;
-    $_input_plano_de_conta_operacional.checked = (linhaClicada.getAttribute('data-operacional') == 'true') ?  true :  false;
-    $_input_plano_de_conta_ativa.checked = ( linhaClicada.getAttribute('data-operacional') == 'true') ?  true :  false;
+    const estado_operacional_table = linhaClicada.getAttribute('data-operacional');
+    const estado_ativa_table = linhaClicada.getAttribute('data-ativa');
+
+    setSwitch_com_valor_tabela($_input_plano_de_conta_operacional,estado_operacional_table)
+    setSwitch_com_valor_tabela($_input_plano_de_conta_ativa, estado_ativa_table);
 
     $_formulario_botao_enviar.value = 'editar';
     $_modal_planos_de_contas_acao.show();
 
 })
 
+function setSwitch_com_valor_tabela(elemento, valor){
+    if(valor == 'true'){
+        if(elemento.checked == false){
+            elemento.click();
+            elemento.value = true;
+        }else{
+            elemento.value = false;
+        }
+    }else{
+        if(elemento.checked == true){
+            elemento.click();
+            elemento.value = false;
+        }else{
+            elemento.value = true;
+        }
+    }
+}
+function setSwitch_com_click(elemento){
+    if(elemento.checked){
+        elemento.setAttribute('value', true);
+    }else{
+        elemento.setAttribute('value', false);
+    }
+}
 
 function renderTable(){
     var linhas = '';
     console.log(planos_de_contas)
     planos_de_contas.forEach(item=>{
         linhas += '<tr '+
-                'data-id="'+ item.plano_de_conta_id +' "'+ 
-                'data-operacional="'+ item.plano_de_conta_operacional+' "'+
-                'data-ativa="'+ item.plano_de_conta_ativa+' ">';
-            if(item.plano_de_conta_operacional == true){
-                linhas += '<td> '+ item.plano_de_conta+'</td><td class="text-primary text-center fw-bold ">Sim</td>';
-            }else{
+                'data-id="'+ item.plano_de_conta_id +'"'+ 
+                'data-operacional="'+ item.plano_de_conta_operacional+'"'+
+                'data-ativa="'+ item.plano_de_conta_ativa+'">';
+            if((item.plano_de_conta_operacional == true) && (item.plano_de_conta_ativa == true)){
+                linhas += '<td>'+ item.plano_de_conta+'</td><td class="text-primary text-center fw-bold ">Sim</td>';
+
+            } else if((item.plano_de_conta_operacional == true) && (item.plano_de_conta_ativa == false)){
+                linhas += '<td class="opacity-50">'+ item.plano_de_conta+'</td><td class="text-primary text-center fw-bold opacity-50">Sim</td>';
+
+            }else if((item.plano_de_conta_operacional == false) && (item.plano_de_conta_ativa == true)){
+
                 linhas += '<td>'+ item.plano_de_conta+'</td><td class="text-danger text-center fw-bold">Não</td>';
+
+
+            }else{
+                linhas += '<td class="opacity-50">'+ item.plano_de_conta+'</td>'+
+                    '<td class="text-danger text-center fw-bold opacity-50">Não</td>';
             }
         linhas += '</tr>';
     })
