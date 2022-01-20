@@ -75,8 +75,8 @@ $_input_plano_de_conta_ativa.addEventListener('change', (event)=>{
 })
 
 
-console.log('O formulario inicia com checked: '+ $_input_plano_de_conta_operacional.checked);
-console.log('O formulario inicia com value: '+ $_input_plano_de_conta_operacional.value);
+// console.log('O formulario inicia com checked: '+ $_input_plano_de_conta_operacional.checked);
+// console.log('O formulario inicia com value: '+ $_input_plano_de_conta_operacional.value);
 
 $_tabela_plano_de_conta.addEventListener('click', event=>{
 
@@ -91,6 +91,7 @@ $_tabela_plano_de_conta.addEventListener('click', event=>{
     setSwitch_com_valor_tabela($_input_plano_de_conta_ativa, estado_ativa_table);
 
     $_formulario_botao_enviar.value = 'editar';
+    $_modal_planos_de_contas_titulo.innerHTML = 'Editar'
     $_modal_planos_de_contas_acao.show();
 
 })

@@ -82,6 +82,19 @@ exports.sucesso_insert = (tabela)=>{
         return resposta;
     }
 }
+exports.sucesso_select = (tabela)=>{
+    var resposta = {
+        status: 200,
+        message: 'Registro selecionado com sucesso',
+        results: []
+    }
+    if(tabela == undefined){
+        return resposta;
+    }else{
+        resposta.results = tabela
+        return resposta;
+    }
+}
 exports.sucesso_update = (tabela)=>{
     var resposta = {
         status: 200,
