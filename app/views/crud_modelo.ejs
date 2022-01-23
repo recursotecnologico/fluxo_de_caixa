@@ -1,0 +1,105 @@
+<%- include('../_template/header') %>
+
+<div id="page_message" class="mt-2 px-2">
+
+</div>
+<div class="mt-2 p-2 bg-white d-flex justify-content-between" style="border-bottom: 2px solid black;">
+    <h5>Planos de Contas</h5>
+    <button class="btn btn-sm btn-outline-success rounded-pill botao_cadastrar">
+        <i class="fas fa-plus"></i>
+    </button>
+</div>
+
+<table class="table table-sm table-striped table-hover bg-white">
+    <thead>
+        <tr><th scope="col">Planos de Contas</th><th scope="col" class="text-center">Operacional</th></tr>
+    </thead>
+    <tbody id="tabela_plano_de_conta">
+        <% if((locals.planos_de_contas != undefined) && (planos_de_contas.length > 0)){
+            planos_de_contas.forEach(function(item){%>
+                <tr data-id="<%- item.plano_de_conta_id%>" 
+                    data-operacional="<%- item.plano_de_conta_operacional%>" 
+                    data-ativa="<%- item.plano_de_conta_ativa%>" 
+                >
+                    <%if((item.plano_de_conta_operacional == true) && (item.plano_de_conta_ativa == true)){%>
+                        <td><%- item.plano_de_conta%></td>
+                        <td class="text-primary text-center fw-bold">Sim</td>
+                    <%}else if((item.plano_de_conta_operacional == true) && (item.plano_de_conta_ativa == false)){%>
+                        <td class="opacity-25"><%- item.plano_de_conta%></td>
+                        <td class="text-primary text-center opacity-25 fw-bold">Sim</td>
+                    <%}else if ((item.plano_de_conta_operacional == false) && (item.plano_de_conta_ativa == true)){%>
+                        <td><%- item.plano_de_conta%></td>
+                        <td class="text-danger text-center fw-bold">Não</td>
+                    <%}else{%>
+                        <td class="opacity-25"><%- item.plano_de_conta%></td>
+                        <td class="text-danger text-center opacity-25 fw-bold">Não</td>
+                    <%}%>               
+                </tr>
+            <%})
+        }else{%>
+            <td>Nenhum plano de contas foi encontrado</td></tr>
+        <%}%>
+    </tbody>
+</table>
+
+<!-- Modal -->
+  <div class="modal fade" id="modal_planos_de_contas" tabindex="-1" aria-labelledby="modal_planos_de_contas_titulo" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modal_planos_de_contas_titulo">Modal title</h5>
+        </div>
+        <form id="formulario">
+
+            <div class="modal-body">
+                <div id="modal_mensagem">
+                </div>
+                <input type="hidden" id="input_plano_de_conta_id">
+                <div class="mb-3">
+                    <label for="input_plano_de_conta" class="form-label">Plano de Conta</label>
+                    <input type="text" class="form-control form-control-sm" id="input_plano_de_conta">
+                </div>
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" role="switch" checked value="true" id="input_plano_de_conta_operacional">
+                    <label class="form-check-label" for="input_plano_de_conta_operacional">Operacional</label>
+                </div>
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" role="switch" checked value="true" id="input_plano_de_conta_ativa">
+                    <label class="form-check-label" for="input_plano_de_conta_atva">Ativa</label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-outline-danger rounded-pill" data-bs-toggle="modal" data-bs-target="#modalDeletar">Deletar</button>
+                <button type="button" class="btn btn-sm btn-outline-secondary rounded-pill " data-bs-dismiss="modal">Calcelar</button>
+                <button type="submit" class="btn btn-sm btn-outline-success rounded-pill" id="formulario_botao_enviar">Enviar</button>
+            </div>
+          </form>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  
+  <!-- Modal -->
+  <div class="modal fade" id="modalDeletar" tabindex="-1" aria-labelledby="modalDelatarTitulo" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalDelatarTitulo">Deletar</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Deseja realmente excluir esse registro?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-sm btn-outline-secondary rounded-pill" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-sm btn-outline-danger rounded-pill">Deletar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+<%- include('../_template/footer') %>

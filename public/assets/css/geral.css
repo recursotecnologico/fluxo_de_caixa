@@ -5,7 +5,10 @@
     --cor-dark-leve: #9E9E9E;
 }
 body{
-    background-color: #eee;
+    background-color: #ccc;
+}
+.fonte_clara_shadow{
+    text-shadow: 1px 1px 1px #000000;
 }
 .navegacao{
     background-color: var(--cor-primaria);
@@ -26,7 +29,13 @@ body{
     align-items: center;
     justify-content: center;
 }
-
+.navegacao_logo{
+    text-decoration: none;
+    color: white;
+}
+.navegacao_logo:hover, .navegacao_logo:active{
+    color: white;
+}
 .menu_lateral{
     background-color: var(--cor-dark);
     position: fixed;
@@ -58,7 +67,7 @@ body{
     align-items: center;
     justify-content: center;
     border-bottom: 0.02rem solid black;
-    height: 35px;
+    height: 40px;
 }
 .menu_lateral ul li a{
     display: flex;
@@ -66,8 +75,12 @@ body{
     height: 100%;
     width: 100%;
     text-decoration: none;
-    color: var(--cor-dark-leve);
+    color: white;
+    text-shadow: 1px 1px 1px #000000;
+    font-weight: bold;
     cursor: pointer;
+    padding-left: 2px;
+    padding-right: 2px;
 }
 .menu_lateral ul li a:hover{
     background-color: black;

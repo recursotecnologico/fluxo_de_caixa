@@ -1,0 +1,101 @@
+<%- include('../_template/header') %>
+
+<div id="page_message" class="mt-2 px-2">
+
+</div>
+<div class="mt-2 p-2 bg-white d-flex justify-content-between" style="border-bottom: 2px solid black;">
+    <h5>Movimentações</h5>
+    <button class="btn btn-sm btn-outline-success rounded-pill botao_cadastrar">
+        <i class="fas fa-plus"></i>
+    </button>
+</div>
+<div class="row m-0 ">
+<% if((locals.tabela != undefined) && (tabela.length > 0)){
+  tabela.forEach(function(coluna){%>
+
+      <div class=" col-md-6 col-12 p-1">
+        <div class="bg-white m-0 p-0 rounded-3" style="box-shadow: 0 0 2px 1px rgba(0,0,0, 0.3);">
+          <p class="m-0 h6 px-1 pb-1 text-center" style="background-color: var(--cor-primaria); color: white; 
+          "><%- coluna.movimentacao%></p>
+          <div class="d-flex justify-content-between px-1">
+            <p class="m-0" >Mensal: <span class="text-danger p-1 fw-light"><%- coluna.movimentacao_mensal%></span></p>
+            <p class="m-0">Ativa: <span class="text-success p-1 fw-light"><%- coluna.movimentacao_ativa%></span></p>
+          </div>
+          <p class="m-0 px-1" >Conta: <span class="fst-italic fw-light"><%- coluna.movimentacao%></span></p>    
+        </div>
+      </div>
+  
+
+  <%})
+}else{%>
+  Nenhuma movimentação foi cadastrada.
+<%}%>
+
+</div>
+
+
+
+
+
+
+<!-- Modal -->
+  <div class="modal fade" id="modal_planos_de_contas" tabindex="-1" aria-labelledby="modal_planos_de_contas_titulo" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modal_planos_de_contas_titulo">Modal title</h5>
+        </div>
+        <form id="formulario">
+
+            <div class="modal-body">
+                <div id="modal_mensagem">
+                </div>
+                <input type="hidden" id="input_plano_de_conta_id">
+                <div class="mb-3">
+                    <label for="input_plano_de_conta" class="form-label">Plano de Conta</label>
+                    <input type="text" class="form-control form-control-sm" id="input_plano_de_conta">
+                </div>
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" role="switch" checked value="true" id="input_plano_de_conta_operacional">
+                    <label class="form-check-label" for="input_plano_de_conta_operacional">Operacional</label>
+                </div>
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" role="switch" checked value="true" id="input_plano_de_conta_ativa">
+                    <label class="form-check-label" for="input_plano_de_conta_atva">Ativa</label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-outline-danger rounded-pill" data-bs-toggle="modal" data-bs-target="#modalDeletar">Deletar</button>
+                <button type="button" class="btn btn-sm btn-outline-secondary rounded-pill " data-bs-dismiss="modal">Calcelar</button>
+                <button type="submit" class="btn btn-sm btn-outline-success rounded-pill" id="formulario_botao_enviar">Enviar</button>
+            </div>
+          </form>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  
+  <!-- Modal -->
+  <div class="modal fade" id="modalDeletar" tabindex="-1" aria-labelledby="modalDelatarTitulo" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalDelatarTitulo">Deletar</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Deseja realmente excluir esse registro?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-sm btn-outline-secondary rounded-pill" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-sm btn-outline-danger rounded-pill">Deletar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+<%- include('../_template/footer') %>
